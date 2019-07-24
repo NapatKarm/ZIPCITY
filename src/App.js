@@ -8,7 +8,13 @@ class App extends Component {
   render(){
     return(
       <div>
+        <p>This is result of City Search</p>
+        <br></br>
         <CitySearch/>
+        <br></br>
+        <p>This is result of Zip Search</p>
+        <br></br>
+        <ZipSearch/>
       </div>
     );
   }
