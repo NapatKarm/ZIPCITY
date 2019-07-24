@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import './App.css';
+import zipSearch from './components/ZipSearch.js'
+import citySearch from './components/CitySearch.js'
 
 class App extends Component {
   constructor(props){
