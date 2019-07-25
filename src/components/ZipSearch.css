@@ -1,0 +1,13 @@
+.table {
+    background-color: #0F1824;
+    color: #A1AFC3;
+    padding: 10px;
+    margin-left: 42%;
+    margin-right: 40%;
+    margin-top: 15px;
+    align-content: center;
+}
+td {
+    color: white;
+    background-color: #303A47;
+}

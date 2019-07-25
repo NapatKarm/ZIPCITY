@@ -1,37 +1,35 @@
 import React, {Component} from 'react';
-import axios from 'axios';
+import './ZipSearch.css';
 
 class ZipSearch extends Component {
     constructor(props){
       super(props);
-      this.state= {
-        test: [],
-        test2: []
-      }
-    }
-  
-    componentDidMount(){
-      this.test();
-    }
-  
-    test=()=>{
-      axios.get("http://ctp-zip-api.herokuapp.com/zip/10303")
-      .then(res => {
-        console.log(res);
-        this.setState({
-          test: res.data[0].City,
-          test2: res.data[0].Country
-        })
-      })
-      .catch(err => {
-        console.log(err);
-      })
     }
     render(){
+      var City = this.props.data.City;
+      var State = this.props.data.State;
+      var Long = this.props.data.Long;
+      var Lat = this.props.data.Lat;
+      var Pop = this.props.data.EstimatedPopulation;
+      var Wage = this.props.data.TotalWages;
+
       return (
         <div>
-          {this.state.test};
-          {this.state.test2};
+          <table class = "table">
+            <th>{City}</th>
+        <tr>
+          <td><div>State : {State}</div></td>
+        </tr>
+        <tr>
+          <td><div>Location: ({Long},{Lat})</div></td>
+        </tr>
+        <tr>
+          <td><div>Population(Estimated): {Pop}</div></td>
+        </tr>
+        <tr>
+          <td><div>Total Wage: {Wage}</div></td>
+        </tr>
+          </table>
         </div>
       );
     }
