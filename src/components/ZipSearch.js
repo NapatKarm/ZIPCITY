@@ -1,6 +1,13 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 
+function Searched(props){
+  return(
+    <div>
+      <p>This Actually Works! The City is {props.city} and wage is {props.wage}</p>
+    </div>
+  )
+}
 class ZipSearch extends Component {
     constructor(props){
       super(props);
@@ -17,30 +24,26 @@ class ZipSearch extends Component {
     }
   
     componentDidMount(){
-      this.showData();
+      this.searchUp();
     }
-  
-    showData=()=>{
+    searchUp=()=>{
+      this.setState({zipcode: this.state.zip})
       axios.get(`http://ctp-zip-api.herokuapp.com/zip/${this.state.zipcode}`)
       .then(res => {
         this.setState({
-          City: res.data[0].City,
-          State: res.data[0].State,
-          Lat: res.data[0].Lat,
-          Long: res.data[0].Long,
-          Population: res.data[0].EstimatedPopulation,
-          Wage: res.data[0].TotalWages
+          city: res.data[3].City,
+          state: res.data[2].State,
+          lat: res.data[2].Lat,
+          long: res.data[2].Long,
+          population: res.data[2].EstimatedPopulation,
+          wage: res.data[3].TotalWages
         })
       })
       .catch(err => {
         console.log(err);
       })
     }
-    searchUp=()=>{
-      this.setState({zipcode: this.state.zip})
-      this.showData();
-      this.showData();
-    }
+
     zipChange=(event)=>{
       this.setState({zip: event.target.value});
     }
@@ -48,13 +51,14 @@ class ZipSearch extends Component {
       return (
         <div>
           <p>Current Zipcode: {this.state.zipcode}</p>
-          <form onSubmit={()=>this.search} className = "form">
+          <form  className = "form">
               <label>
                   Enter Zipcode:
                   <input type="text" name="zipcode" value={this.state.zip} onChange={this.zipChange}/>
               </label>
           </form>
           <button onClick={()=>this.searchUp()}>Submit</button>
+          <Searched city = {this.state.city} wage = {this.state.wage}/>
         </div>
       );
     }
