@@ -12,8 +12,9 @@ class App extends Component {
       data : [],
       zip : '',
       city : '',
+      cityname : '',
       zipcode : '',
-      status : 0
+      status : true
     }
   }
 
@@ -23,7 +24,8 @@ class App extends Component {
       console.log(res.data)
       this.setState({
         data : res.data,
-        zipcode : ''
+        cityname : this.state.city,
+        zip : ''
       })
     })
     .catch(err => {
@@ -37,7 +39,8 @@ class App extends Component {
       console.log(res.data)
       this.setState({
         zipdata : res.data,
-        zipcode : this.state.zip
+        zipcode : this.state.zip,
+        city : ''
       })
     })
     .catch(err => {
@@ -51,7 +54,12 @@ class App extends Component {
   cityChange=(event)=>{
     this.setState({city: event.target.value});
   }
-
+  changeToZip=(event)=>{
+    this.setState({status : true})
+  }
+  changeToCity=(event)=>{
+    this.setState({status : false})
+  }
   render(){
    let zipResult = this.state.zipdata.map((zipinfo)=>
     <ZipSearch data = {zipinfo}/>
@@ -63,6 +71,9 @@ class App extends Component {
 
     return(
       <div>
+        <button onClick={this.changeToZip} class = "button">Zip Search</button><button onClick={this.changeToCity} class = "button">City Search</button>
+        {this.state.status ? (
+      <div>
       <h1 class= "headline">Current Zipcode: {this.state.zipcode}</h1>
       <form  className = "form">
         <label>
@@ -73,7 +84,12 @@ class App extends Component {
       </form>
 
       <button onClick={this.searchUpZip} class = "button">Submit Zip</button>
-
+      </div>
+        )
+        :
+        (
+      <div>
+      <h1 class= "headline">Current City: {this.state.cityname}</h1>
       <form className = "form">
         <label>
           Enter City:
@@ -81,11 +97,11 @@ class App extends Component {
             <br></br>
         </label>
       </form>
-
       <button onClick={this.searchUpCity} class = "button">Submit City</button>
-
-      {zipResult}
-      {cityResult}
+      </div>
+      )}
+      {this.state.status ? zipResult : cityResult}
+      {/* {cityResult} */}
       </div>
     );
   }
