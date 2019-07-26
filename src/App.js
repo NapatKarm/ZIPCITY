@@ -12,17 +12,18 @@ class App extends Component {
       data : [],
       zip : '',
       city : '',
-      zipcode : ''
+      zipcode : '',
+      status : 0
     }
   }
 
   searchUpCity=()=>{
-    axios.get(`http://ctp-zip-api.herokuapp.com/city/${this.state.city}`)
+    axios.get(`http://ctp-zip-api.herokuapp.com/city/${this.state.city.toUpperCase()}`)
     .then(res => {
       console.log(res.data)
       this.setState({
         data : res.data,
-        zipcode : this.state.zip
+        zipcode : ''
       })
     })
     .catch(err => {
